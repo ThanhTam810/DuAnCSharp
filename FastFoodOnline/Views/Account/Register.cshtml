@@ -1,0 +1,87 @@
+﻿@model FastFoodOnline.ViewModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Đăng ký";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg border-0 rounded-4" style="background:#fff0f6;">
+        <div class="card-header text-white text-center py-3"
+             style="background: linear-gradient(90deg, #ff85c0, #ffadd2); border-top-left-radius: 1rem; border-top-right-radius: 1rem;">
+            <h2 class="mb-0">🌸 Đăng ký tài khoản 🌸</h2>
+        </div>
+
+        <div class="card-body p-4">
+            <form asp-action="Register" method="post" class="mx-auto">
+                <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label fw-bold text-pink">📧 Email</label>
+                    <input asp-for="Email" class="form-control border-pink" placeholder="Nhập email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label fw-bold text-pink">🔑 Mật khẩu</label>
+                    <input asp-for="Password" type="password" class="form-control border-pink" placeholder="Nhập mật khẩu" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ConfirmPassword" class="form-label fw-bold text-pink">🔒 Xác nhận mật khẩu</label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-control border-pink" placeholder="Nhập lại mật khẩu" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="FullName" class="form-label fw-bold text-pink">👩‍💼 Họ và tên</label>
+                    <input asp-for="FullName" class="form-control border-pink" placeholder="Họ và tên" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PhoneNumber" class="form-label fw-bold text-pink">📱 Số điện thoại</label>
+                    <input asp-for="PhoneNumber" class="form-control border-pink" placeholder="Số điện thoại" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Address" class="form-label fw-bold text-pink">🏠 Địa chỉ</label>
+                    <input asp-for="Address" class="form-control border-pink" placeholder="Địa chỉ" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="DateOfBirth" class="form-label fw-bold text-pink">🎂 Ngày sinh</label>
+                    <input asp-for="DateOfBirth" type="date" class="form-control border-pink" />
+                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-pink w-100">✨ Đăng ký ✨</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .text-pink {
+        color: #d63384 !important;
+    }
+
+    .border-pink {
+        border: 1px solid #ffadd2 !important;
+    }
+
+    .btn-pink {
+        background: linear-gradient(90deg, #ff85c0, #ffadd2);
+        color: white;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        transition: 0.3s;
+    }
+
+        .btn-pink:hover {
+            background: linear-gradient(90deg, #f759ab, #ffa6c9);
+            transform: scale(1.05);
+        }
+</style>

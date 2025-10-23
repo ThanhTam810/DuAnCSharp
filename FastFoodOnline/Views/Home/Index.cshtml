@@ -1,0 +1,211 @@
+﻿@using FastFoodOnline.Models
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Trang chủ";
+
+    // Init an toàn
+    ApplicationUser user = null;
+    IList<string> roles = new List<string>();
+    bool isAdmin = false;
+
+    // Kiểm tra đăng nhập và lấy user an toàn
+    if (User?.Identity?.IsAuthenticated == true)
+    {
+        user = await UserManager.GetUserAsync(User);
+        if (user != null)
+        {
+            // Lấy roles chỉ khi user != null
+            roles = await UserManager.GetRolesAsync(user) ?? new List<string>();
+            isAdmin = roles.Contains("Admin");
+        }
+    }
+
+    // Đảm bảo ViewBag có giá trị mặc định để tránh null reference trong view
+    ViewBag.UserCount = ViewBag.UserCount ?? 0;
+    ViewBag.FoodCount = ViewBag.FoodCount ?? 0;
+    ViewBag.ComboCount = ViewBag.ComboCount ?? 0;
+    ViewBag.OrderCount = ViewBag.OrderCount ?? 0;
+}
+
+<!-- ===========================
+     HERO / WELCOME BANNER
+     =========================== -->
+<div class="welcome-banner mb-4 text-center hero-section">
+    <img src="/images/welcomebanner1.jpg" alt="Bánh ngọt ngào" class="img-fluid rounded shadow-sm banner-img" />
+    <h2 class="mt-4 fw-bold text-pink">Chào mừng đến với Amoca Ngọt Ngào 🍰</h2>
+    <p class="lead">Thưởng thức hương vị ngọt ngào và tinh tế mỗi ngày cùng chúng tôi!</p>
+</div>
+
+<div class="container py-4">
+
+    @* Nếu chưa đăng nhập *@
+    @if (user == null)
+    {
+        <div class="d-flex justify-content-center">
+            <div class="card text-center shadow" style="width: 22rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Chào mừng đến Bánh ngọt Amoca 🍰</h5>
+                    <p>Vui lòng đăng nhập hoặc đăng ký để tiếp tục.</p>
+                    <a class="btn btn-mgmt me-2" asp-controller="Account" asp-action="Login">Đăng nhập</a>
+                    <a class="btn btn-outline-secondary" asp-controller="Account" asp-action="Register">Đăng ký</a>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <!-- Thông tin cá nhân (trái) -->
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header text-white fw-bold" style="background:#f06292;">
+                        🌸 Thông tin cá nhân 🌸
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Họ tên:</strong> @(!string.IsNullOrWhiteSpace(user.FullName) ? user.FullName : "Chưa cập nhật")</p>
+                        <p><strong>Email:</strong> @(!string.IsNullOrWhiteSpace(user.Email) ? user.Email : "Chưa cập nhật")</p>
+                        <p><strong>Vai trò:</strong> @(roles.Any() ? string.Join(", ", roles) : "User")</p>
+                        @if (!isAdmin)
+                        {
+                            <a class="btn btn-mgmt mt-2" asp-controller="Account" asp-action="EditUser">Chỉnh sửa</a>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nếu là Admin -->
+            @if (isAdmin)
+            {
+                <div class="col-md-8">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <a asp-area="Admin" asp-controller="User" asp-action="Index" class="text-decoration-none">
+                                <div class="card shadow-sm h-100 hover-card">
+                                    <div class="card-header text-white fw-bold" style="background:#f06292;">
+                                        👤 Quản lý tài khoản
+                                    </div>
+                                    <div class="card-body text-dark">
+                                        <p>Số tài khoản: <strong>@ViewBag.UserCount</strong></p>
+                                        <p>Xem, sửa, xóa user.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-md-6">
+                            <a asp-area="Admin" asp-controller="FoodItem" asp-action="Index" class="text-decoration-none">
+                                <div class="card shadow-sm h-100 hover-card">
+                                    <div class="card-header text-white fw-bold" style="background:#f06292;">
+                                        🍰 Quản lý món ăn
+                                    </div>
+                                    <div class="card-body text-dark">
+                                        <p>Số món: <strong>@ViewBag.FoodCount</strong></p>
+                                        <p>Thêm / cập nhật / xóa món.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-md-6">
+                            <a asp-area="Admin" asp-controller="Combo" asp-action="Index" class="text-decoration-none">
+                                <div class="card shadow-sm h-100 hover-card">
+                                    <div class="card-header text-white fw-bold" style="background:#f06292;">
+                                        🥗 Quản lý combo
+                                    </div>
+                                    <div class="card-body text-dark">
+                                        <p>Số combo: <strong>@ViewBag.ComboCount</strong></p>
+                                        <p>Quản lý các combo tiết kiệm.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-md-6">
+                            <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="text-decoration-none">
+                                <div class="card shadow-sm h-100 hover-card">
+                                    <div class="card-header text-white fw-bold" style="background:#f06292;">
+                                        📦 Quản lý đơn hàng
+                                    </div>
+                                    <div class="card-body text-dark">
+                                        <p>Tổng số đơn hàng: <strong>@ViewBag.OrderCount</strong></p>
+                                        <p>Theo dõi và cập nhật trạng thái.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <!-- Nếu là User thường -->
+                <div class="col-md-8">
+                    <div class="card text-center shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Xin chào, @(!string.IsNullOrWhiteSpace(user.FullName) ? user.FullName : "bạn")! 🩷</h5>
+                            <p>Khám phá thực đơn và đặt món ngay thôi.</p>
+                            <a class="btn btn-mgmt mt-2" asp-controller="Menu" asp-action="Food">Xem thực đơn</a>
+                        </div>
+                    </div>
+
+                    <!-- Ưu đãi hôm nay -->
+                    <div class="mt-4">
+                        <h4 class="text-center text-pink">🔥 Ưu đãi hôm nay</h4>
+                        <div class="d-flex justify-content-center gap-4 flex-wrap mt-3">
+                            <div class="card shadow-lg border-0" style="width: 20rem;">
+                                <img src="/images/combo1.jpg" class="card-img-top rounded-top" alt="Combo 1" style="height: 180px; object-fit: cover;" />
+                                <div class="card-body text-center">
+                                    <h5 class="card-title text-pink fw-bold">Combo 6 bánh tiramisu đầy ngọt ngào</h5>
+                                    <p class="card-text text-muted">Chỉ <strong>99.000đ</strong> – Tiết kiệm 10%</p>
+                                    <a asp-controller="Menu" asp-action="Combos" class="btn btn-mgmt">Đặt ngay</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    .text-pink {
+        color: #e75480;
+    }
+
+    /* Hero/banner: kéo dài chiều cao + căn giữa nội dung */
+    .hero-section {
+        padding: 60px 0; /* tăng spacing trên/dưới */
+        min-height: 420px; /* chiều cao tối thiểu để "dài ra" */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #fff0f4; /* nhẹ nhàng, tuỳ chỉnh nếu cần */
+        border-radius: 8px;
+    }
+
+        .hero-section .banner-img {
+            max-width: 85%;
+            max-height: 320px;
+            width: auto;
+            height: auto;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+    /* Card cố định chiều cao nếu cần */
+    .card.h-100 {
+        min-height: 180px;
+    }
+
+    /* Hiệu ứng hover cho card (tuỳ chọn) */
+    .hover-card:hover {
+        transform: translateY(-6px);
+        transition: transform .18s ease-in-out;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    }
+</style>

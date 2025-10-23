@@ -1,0 +1,57 @@
+﻿@model FastFoodOnline.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+<h2 class="text-center text-pink fw-bold mb-4">🌸 Đăng nhập 🌸</h2>
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <form asp-action="Login" method="post"
+              class="card shadow-lg p-4 border-0"
+              style="border-radius: 16px; background: #fff0f6;">
+
+            <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label fw-bold text-pink"></label>
+                <input asp-for="Email" class="form-control border-pink"
+                       style="border-radius: 10px;" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label fw-bold text-pink"></label>
+                <input asp-for="Password" type="password"
+                       class="form-control border-pink"
+                       style="border-radius: 10px;" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-check mb-3">
+                <input asp-for="RememberMe" class="form-check-input" />
+                <label asp-for="RememberMe" class="form-check-label text-pink"></label>
+            </div>
+
+            <button type="submit"
+                    class="btn w-100 fw-bold text-white"
+                    style="background: linear-gradient(90deg, #ff9a9e, #fecfef); border-radius: 12px;">
+                💖 Đăng nhập 💖
+            </button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+    .text-pink {
+        color: #d63384 !important;
+    }
+
+    .border-pink {
+        border: 2px solid #f8a5c2 !important;
+    }
+</style>
