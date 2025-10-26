@@ -682,3 +682,4 @@ C:\Users\Admin\Documents\Zalo Received Files\ASMKT\FastFoodOnline\FastFoodOnline
 C:\Users\Admin\Documents\Zalo Received Files\ASMKT\FastFoodOnline\FastFoodOnline.Tests\obj\Debug\net8.0\FastFoodOnline.Tests.pdb
 C:\Users\Admin\Documents\Zalo Received Files\ASMKT\FastFoodOnline\FastFoodOnline.Tests\obj\Debug\net8.0\FastFoodOnline.Tests.genruntimeconfig.cache
 C:\Users\Admin\Documents\Zalo Received Files\ASMKT\FastFoodOnline\FastFoodOnline.Tests\obj\Debug\net8.0\ref\FastFoodOnline.Tests.dll
+C:\Users\Admin\Documents\Zalo Received Files\ASMKT\FastFoodOnline\FastFoodOnline.Tests\obj\Debug\net8.0\FastFoodOnline.Tests.sourcelink.json

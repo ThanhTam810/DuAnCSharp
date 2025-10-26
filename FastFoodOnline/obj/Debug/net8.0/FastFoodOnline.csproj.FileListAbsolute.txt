@@ -540,3 +540,4 @@ C:\Users\Admin\Documents\Zalo Received Files\ASMKT\FastFoodOnline\FastFoodOnline
 C:\Users\Admin\Documents\Zalo Received Files\ASMKT\FastFoodOnline\FastFoodOnline\obj\Debug\net8.0\FastFoodOnline.genruntimeconfig.cache
 C:\Users\Admin\Documents\Zalo Received Files\ASMKT\FastFoodOnline\FastFoodOnline\obj\Debug\net8.0\ref\FastFoodOnline.dll
 C:\Users\Admin\Documents\Zalo Received Files\ASMKT\FastFoodOnline\FastFoodOnline\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\Admin\Documents\Zalo Received Files\ASMKT\FastFoodOnline\FastFoodOnline\obj\Debug\net8.0\FastFoodOnline.sourcelink.json
